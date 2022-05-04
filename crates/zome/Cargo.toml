@@ -1,0 +1,28 @@
+[package]
+authors = ["guillem.cordoba@gmail.com", "eric@harris-braun.com", "tatsuya.g.sato@yumeville.com"]
+description = "Search zome for any Holochain app"
+documentation = "https://holochain-open-dev.github.io/search"
+edition = "2021"
+homepage = "https://docs.rs/hc_zome_searchs"
+license = "MIT"
+name = "hc_zome_searchs"
+repository = "https://github.com/holochain-open-dev/search"
+version = "0.0.1"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+name = "hc_zome_searchs"
+
+[dependencies]
+derive_more = "0"
+serde = "1"
+
+hc_zome_keyword_index_types = {path = "../types"}
+hdk = {version = "0.0.130", features = ["encoding"]}
+
+[dev-dependencies]
+fixt = "0.0.10"
+futures = {version = "0.3.1", default-features = false}
+hdk = {version = "0.0.130", features = ["encoding", "test_utils"]}
+holochain = {version = "0.0.136", default-features = false, features = ["test_utils"]}
+tokio = {version = "1.3", features = ["full"]}

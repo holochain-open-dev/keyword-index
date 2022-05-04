@@ -1,0 +1,8 @@
+---
+manifest_version: "1"
+name: search-demo
+uuid: 00000000-0000-0000-0000-000000000000
+properties: ~
+zomes:
+  - name: keyword_index
+    bundled: ../../target/wasm32-unknown-unknown/release/hc_zome_keyword_index.wasm
