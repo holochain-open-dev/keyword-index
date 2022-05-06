@@ -1,6 +1,8 @@
 use ::fixt::prelude::fixt;
 
-use hc_zome_keyword_index_types::{IndexHashByKeywordsInput, SearchByKeywordInput};
+use hc_zome_keyword_index_types::{
+    IndexHashByKeywordsInput, SearchByKeywordInput, SearchByKeywordMatch,
+};
 use hdk::prelude::*;
 use holochain::test_utils::consistency_10s;
 use holochain::{conductor::config::ConductorConfig, sweettest::*};
@@ -50,24 +52,25 @@ async fn index_and_search() {
 
     let index_input = IndexHashByKeywordsInput {
         index_name: String::from("my_index"),
-        indexed_hash: fake_hash,
-        indexed_by_keywords: vec![String::from("holochain")],
+        indexed_hash: fake_hash.clone(),
+        indexed_by_keywords: vec![String::from("holochain"), String::from("web3")],
     };
 
-    conductors[0]
+    let _r: () = conductors[0]
         .call(&alice_zome, "index_hash_by_keywords", index_input)
         .await;
+
+    consistency_10s(&[&alice, &bobbo]).await;
 
     let search_input = SearchByKeywordInput {
         index_name: String::from("my_index"),
         keyword_prefix: String::from("ho"),
     };
 
-    let hashes: Vec<SearchByKeywordMatch> = conductors[0]
-        .call(&alice_zome, "search_by_keyword_prefix", search_input)
+    let matches: Vec<SearchByKeywordMatch> = conductors[0]
+        .call(&bob_zome, "search_by_keyword_prefix", search_input)
         .await;
 
-    consistency_10s(&[&alice, &bobbo]).await;
-
-    assert_eq!(hashes[0], fake_hash);
+    assert_eq!(matches[0].matched_hash, fake_hash);
+    assert_eq!(matches[0].matching_keyword, String::from("ho"));
 }

@@ -1,17 +1,17 @@
 [package]
 authors = ["guillem.cordoba@gmail.com", "eric@harris-braun.com", "tatsuya.g.sato@yumeville.com"]
-description = "Search zome for any Holochain app"
-documentation = "https://holochain-open-dev.github.io/search"
+description = "keyword-index zome for any Holochain app"
+documentation = "https://holochain-open-dev.github.io/keyword-index"
 edition = "2021"
-homepage = "https://docs.rs/hc_zome_searchs"
+homepage = "https://docs.rs/hc_zome_keyword_index"
 license = "MIT"
-name = "hc_zome_searchs"
-repository = "https://github.com/holochain-open-dev/search"
+name = "hc_zome_keyword_index"
+repository = "https://github.com/holochain-open-dev/keyword-index"
 version = "0.0.1"
 
 [lib]
 crate-type = ["cdylib", "rlib"]
-name = "hc_zome_searchs"
+name = "hc_zome_keyword_index"
 
 [dependencies]
 derive_more = "0"
